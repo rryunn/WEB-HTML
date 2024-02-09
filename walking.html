@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D-DAY 계산기</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    body {
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image:url('images/bg-1.jpg');
+    }
+    h1 {
+      margin-bottom:20px;
+    }
+    #result {
+      font-size:1.5em;
+      font-weight: bold;
+      color:red;
+
+    }
+    #box{
+      width: 200px;
+      height : 30px;
+      font-size: 20px;
+      margin: 0 auto; /* 가로 여백을 자동으로 설정하여 가운데 정렬 */
+      display: block; /* 요소를 블록 레벨 요소로 설정하여 중앙 정렬 */
+    }
+    #button{
+      margin: 0 auto; /* 가로 여백을 자동으로 설정하여 가운데 정렬 */
+      display: block; /* 요소를 블록 레벨 요소로 설정하여 중앙 정렬 */
+    }
+    .container{
+      background-color: white;
+      width: 50%; /* 또는 적절한 너비로 설정 */
+      height: 60%;
+      margin: 0 auto; /* 가운데 정렬 */
+      border: 2px solid black; /* 테두리 추가 */
+      padding: 20px; /* 내부 여백 추가 */
+      text-align: center; /* 텍스트를 가운데 정렬 */
+      position: relative; /* 위치 지정을 위해 상대적으로 설정 */
+    }
+    #dday{
+      background-color: black;
+      color: white;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class = "container">
+    <form>
+      <h1 id="dday">D - DAY 계산기</h1>
+
+      <h2>계산하고 싶은 날짜를 입력하세요 :</h2>
+      
+      <h3>( 작성 예시 :2024-02-09 )</h3>
+      <br>
+      <input type = text id ="box">
+      <br>
+
+      <button id = "button">확인</button>
+
+      <p><strong>_________________________________________</strong></p>
+      <br>
+      <p><span id="result"> </span></p>
+    </form>
+    <br>
+    <span>
+      <h1 id ="date"></h1>
+      <h2 id = "time"> </h2>
+    </span>
+
+  </div>
+
+</body>
+<script src="js/walking.js"></script>
+</html>
