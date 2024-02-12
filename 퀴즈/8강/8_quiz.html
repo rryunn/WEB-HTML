@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내가 살아온 시간</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        button{
+            border : 3px solid black;
+            width: 100px;
+            height: 50px;
+            font-size: 30px;
+        }
+        input{
+            width: 100px;
+            height: 50px;
+            font-size: 25px;
+        }
+        .container{
+            border : 3px solid black;
+            width : 500px;
+            background-color: white;
+            margin: 20px auto; /* 위쪽 여백을 20px로 조정 */
+            padding: 20px; /* 내부 여백 추가 */
+            text-align: center; /* 텍스트를 가운데 정렬 */
+            font-size: 20px;
+
+        }
+    </style>
+</head>
+<body>
+
+    <h1> 내가 살아온 시간 </h1>
+    <br>
+    <br>
+
+    <input text id = "year">
+    년
+    <input text id = "month">
+    월
+    <input text id="day">
+    일
+    <button> 계산</button>
+    
+
+    <div class="container">		
+        <p id = "current">  </p>
+        <p id="days" ></p>
+        <p id="hours"></p>	
+    </div>
+
+</body>
+<script src = "8_quiz.js"> </script>
+</html>
