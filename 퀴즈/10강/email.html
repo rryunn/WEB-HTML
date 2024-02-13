@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>연습문제 1</title>
+	<link rel="stylesheet">
+    <style>
+        body{
+            text-align: center; 
+
+        }
+        #email{
+            width: 500px;
+            height: 50px;
+            font-size: 18px;
+        }
+        h1{
+            padding: 50px;
+        }
+        button{
+            width: 100px;
+            height: 50px;
+        }
+        #result{
+            padding : 20px;
+            font-size : 18px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1> 보안을 위해 이메일 주소의 일부 감추기</h1>
+    <label>
+        <input type = text id="email" placeholder="이메일 주소를 입력하세요" autofocus> 
+    </label>
+    <button id = "bttn">실행</button>
+    </div>
+	<div id="result">	
+	<p>_____________________________________</p>		
+	</div>
+    <button id = "reset"> 취소 </button>	
+
+	<script src="email.js"></script>
+</body>
+</html>
