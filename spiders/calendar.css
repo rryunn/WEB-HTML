@@ -1,0 +1,67 @@
+h1{
+    text-align: center; /* 텍스트를 가운데 정렬 */
+}
+.divider {
+    border-bottom: 2px solid black; /* 검정색 가로선 스타일 */
+}
+#list{
+    border-right: 2px solid black;
+    float: left; /* 왼쪽으로 플로팅 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+
+} 
+#list ul {
+  list-style-type: none; /* 리스트 스타일 제거 */
+  padding: 0; /* 내부 여백 제거 */
+  margin: 300px 0; /* 위아래 여백 조절 */
+}
+#list li{
+    margin-bottom: 30px;
+    font-size: 19px;
+}
+
+.hidden{
+    display:none;
+}
+.container {
+    display: flex;
+    height: calc(100vh - 100px); /* 브라우저 높이에서 헤더 높이를 뺀 값으로 설정 */
+}
+
+.sidebar{
+    width : 250px;
+    padding: 20px;
+    text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+#calendar{
+    flex: 3;
+    padding: 20px;
+    text-align: center; /* 텍스트를 가운데 정렬 */
+}
+#calendar_date{
+    width: 450px;
+    padding: 20px;
+    border-left: 2px solid black;
+    text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+#regist{
+    flex : 2;
+    padding : 20px;
+    text-align: center;
+}
+#change{
+    flex : 2;
+    padding : 20px;
+    text-align: center;
+}
+
+#calendar-body{
+    font-size: 50px;  
+}
+
+ 
+#table{
+    font-size: 50px;
+}
