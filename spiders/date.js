@@ -2,7 +2,7 @@
 var calendarBody = document.getElementById('calendar-body');
 var today = new Date();
 var first = new Date(today.getFullYear(), today.getMonth(), 1);
-
+const calDate = document.querySelector("#cal-date");
 
 const next = document.querySelector("#next");
 const prev = document.querySelector("#prev");
@@ -11,27 +11,21 @@ var toYear = today.getFullYear();
 var start = first.getDay();
 var tx = 0;
 now.innerHTML = `${toYear}년 ${toMonth}월`;
+calDate.textContent = today.getDate();
 
-
-//화살표 용도
 function SelectCalendar(){
-    // 캘린더 테이블 행 생성
-
     for (var i = 0; i < 6; i ++) {
         var $tr = document.createElement('tr');
-
-        // 각 행에 일자 채우기
         for(var j = 0; j < 7; j ++) {
 
             var $td = document.createElement('td');
             var date = (i * 7) + j -start+ 1;
-            
+        
             if(toMonth === 4 || toMonth ===6||toMonth ===9||toMonth ===11){
                 if(date > 0 && date < 31){
                     $td.textContent = date;
                     if(date === 30){
                         tx = j;
-
                     }
 
                 }
@@ -65,7 +59,12 @@ function SelectCalendar(){
                     }
                 }
             }
-                $tr.appendChild($td);
+
+            $td.addEventListener("click", function(){
+                calDate.textContent = this.textContent;
+            });
+
+            $tr.appendChild($td);
         }  
         calendarBody.appendChild($tr);
     }
@@ -86,7 +85,7 @@ next.addEventListener("click", (e) =>{
         toYear++;
     }
     now.innerHTML = `${toYear}년 ${toMonth}월`;
-    start = tx +1;
+    start = tx +1; //그 달 마지막 요일을 알아낸 후 +1 한 값이 start 로 들어감.
     SelectCalendar();
     }
 )
@@ -112,3 +111,5 @@ prev.addEventListener("click", (e) =>{
 
 
 SelectCalendar();
+
+
