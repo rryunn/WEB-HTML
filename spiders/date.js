@@ -59,9 +59,29 @@ function SelectCalendar(){
                     }
                 }
             }
+            //td의 id는 date로 
+            //그럼 달 구분은 어떡해 ? 
+            //데이터를 월/달/시간/사용자로 나눠서 받는다고 칠 때
+            // 불러온 데이터의 월과 현재 달이 일치하면 
+            // 그 중에 date가 id와 같은 녀석의 td 위치에다가 추가
 
             $td.addEventListener("click", function(){
                 calDate.textContent = this.textContent;
+
+                //fetch
+
+
+
+
+
+
+
+
+
+
+
+
+                this.innerHTML+= `<br>안녕하세요`;
             });
 
             $tr.appendChild($td);

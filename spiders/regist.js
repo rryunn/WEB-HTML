@@ -12,7 +12,8 @@ var tx = 0;
 mnow.innerHTML = `${toYear}년 ${toMonth}월`;
 var selectTime = document.querySelector("#selectTime");
 var result = document.querySelector("#result");
-var result_date = document.querySelector("#result_date");
+var result_month = document.querySelector("#result_month");
+var result_day = document.querySelector("#result_day");
 var result_time = document.querySelector("#result_time");
 var resultDate = 0;
 
@@ -77,18 +78,33 @@ function RegistCalendar(){
                     this.style.backgroundColor = ""; // 초기 배경색으로 되돌리기
                 }
             });
-            
+            var isClicked = false; 
             $td.addEventListener("click", function() {
-                isClicked = !isClicked; // 클릭된 상태를 토글
-                if (isClicked) {
+                if (!isClicked) {
                     this.style.backgroundColor = "rgb(241, 243, 203)";
                     resultDate = this.textContent;
-                    result_date.innerHTML += `날짜 : ${toMonth}월 ${resultDate}일`;
+                    result_month.innerHTML += `${toMonth}`;
+                    result_day.innerHTML += `${resultDate}`;
+                    isClicked=true;
                 } else {
+                    alert("날짜는 하루만 선택 가능합니다.");
+                    
+
+                if (isClicked){
                     this.style.backgroundColor = ""; // 초기 배경색으로 되돌리기
+                    result_month.innerHTML = ``;
+                    result_day.innerHTML = ``;
+                    result_time.innerHTML = ``;
+                    boxes.forEach(function(box) {
+                        box.style.backgroundColor = "";
+                    });
+
+                    isClicked = false;
+                }
                 }
             });
             
+
             $tr.appendChild($td);
 
         }  
@@ -196,23 +212,27 @@ boxes.forEach(function(box) {
             var largestMinute = "00";
             largestId = `${largestHour}:${largestMinute}`;
         }
-        result_time.innerHTML = `시간 : ${smallestId} ~ ${largestId}`;
+        result_time.innerHTML = `${smallestId} ~ ${largestId}`;
+        if (alertFired) {
+            // 결과 초기화
+            boxIds = [];
+            result_time.innerHTML = "";
+        }
         
     });
-
-
-    
   });
 
 
 // 확인 버튼 클릭 이벤트 핸들러
 document.getElementById("ok").addEventListener("click", function() {
     // 사용자가 선택한 날짜, 시간, 사용자명을 가져옴
-    var result_date_element = document.getElementById("result_date");
+    var result_month_element = document.getElementById("result_month");
+    var result_day_element = document.getElementById("result_day");
     var result_time_element = document.getElementById("result_time");
     var result_who_element = document.getElementById("result_who");
 
-    var result_date = result_date_element.textContent;
+    var result_month = result_month_element.textContent;
+    var result_day = result_day_element.textContent;
     var result_time = result_time_element.textContent;
     var result_who = result_who_element.value;
 
@@ -223,7 +243,8 @@ document.getElementById("ok").addEventListener("click", function() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            DATE: result_date,
+            MONTH : result_month,
+            DAY : result_day,
             TIME: result_time,
             NAME: result_who
         })
@@ -236,18 +257,20 @@ document.getElementById("ok").addEventListener("click", function() {
     })
     .then(data => {
         alert("일정이 저장되었습니다.");
-        
-        // 성공적으로 저장된 후에 필요한 작업 수행
+        window.location.reload();
+
     })
     .catch(error => {
         console.error('데이터 저장 오류:', error);
-        alert("일정 저장에 실패하였습니다. 날짜를 하루만 입력해주십시오.");
+        alert("일정 저장에 실패하였습니다.");
     });
 
     // 입력 필드 초기화
-    result_date_element.textContent = "";
+    result_month_element.textContent = "";
+    result_day_element.textContent = "";
     result_time_element.textContent = "";
     result_who_element.value = "";
+
 });
 
 
