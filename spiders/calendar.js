@@ -6,7 +6,7 @@ function showCalendar(){
     document.getElementById("calendar").classList.remove("hidden");
     document.getElementById("calendar_date").classList.remove("hidden");
     document.getElementById("mini_container").style.border.color="white";
-    line.style.border =  "3px solid rgb(188, 187, 187)";
+    line.style.border =  "1px solid black";
     document.getElementById("name").classList.remove("hidden");
     document.getElementById("regist").classList.add("hidden");
     document.getElementById("change").classList.add("hidden");

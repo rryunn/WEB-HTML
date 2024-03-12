@@ -1,12 +1,23 @@
 
 function showSchedule() {
-    
-    // 서버에서 일정 데이터를 가져오는 fetch 요청
+    const currentDate = new Date();
     fetch('/schedule')
         .then(response => response.json())
         .then(data => {
-            // 받아온 데이터를 이용하여 일정을 표시
-            //const change = document.getElementById('change');
+            data.sort((a, b) => {
+                const dateA = new Date(`${a.MONTH}/${a.DAY}/${a.YEAR}`);
+                const dateB = new Date(`${b.MONTH}/${b.DAY}/${b.YEAR}`);
+
+                if (dateA < currentDate && dateB >= currentDate) {
+                    return 1; // a를 b보다 뒤로 보냄
+                } else if (dateA >= currentDate && dateB < currentDate) {
+                    return -1; // a를 b보다 앞으로 보냄
+                } else {
+                    // 그 외의 경우에는 날짜를 비교하여 정렬
+                    return dateA - dateB;
+                }
+            });
+
             change.innerHTML = ''; // 일정을 표시할 요소 초기화
             const title = document.createElement('div');
             title.textContent = `일정리스트`;
@@ -21,19 +32,21 @@ function showSchedule() {
 
                 listItem.setAttribute('id', id); // listItem에 ID를 설정합니다.
                 listItem.classList.add('listItem'); // listItem에 클래스를 추가합니다.
-                listItem.textContent = `날짜 : ${schedule.MONTH}월 ${schedule.DAY}일, 시간 : ${schedule.TIME}, 사용자 : ${schedule.NAME}`;
+
+                listItem.textContent = `날짜 : ${schedule.YEAR}년 ${schedule.MONTH}월 ${schedule.DAY}일, 시간 : ${schedule.TIME}, 사용자 : ${schedule.NAME}`;
                 
-                const editButton = document.createElement('button'); //html 요소에 쓸거 createElement 이용하는거 잊지말기 
-                editButton.textContent = '수정';
+                const editButton = document.createElement('button'); 
+                editButton.textContent='수정';
                 editButton.classList.add('editButton');
                 
                 editButton.addEventListener('click',() => {
-                    
+
                     const monthInput = document.createElement('input');
                     monthInput.type = 'number';
                     monthInput.min = 1; 
                     monthInput.max = 12;
                     monthInput.value = schedule.MONTH;
+
 
                     const dayInput = document.createElement('input');
                     dayInput.type = 'number';
@@ -41,14 +54,15 @@ function showSchedule() {
                     dayInput.max = 31;
                     dayInput.value = schedule.DAY;
 
-                    
                     const timeInput = document.createElement('input');
                     timeInput.type = 'text';
                     timeInput.value = schedule.TIME;
                     
+
                     const nameInput = document.createElement('input');
                     nameInput.type = 'text';
                     nameInput.value = schedule.NAME;
+
                     const confirmButton = document.createElement('button');
                     confirmButton.textContent = '확인';
 
@@ -59,14 +73,15 @@ function showSchedule() {
                             DAY: dayInput.value,
                             TIME: timeInput.value,
                             NAME: nameInput.value
+                            
                         };
                 
-                        // 서버에 수정된 내용을 전송합니다.
                         fetch('/update-schedule', {
                             method: 'PUT', // 수정 요청은 PUT 메소드를 사용합니다.
                             headers: {
                                 'Content-Type': 'application/json',
                             },
+                            body: JSON.stringify(beforeSchedule),
                             body: JSON.stringify(updatedSchedule), // 수정된 일정 정보를 서버로 전송합니다.
                         })
                         .then(response => {
@@ -88,7 +103,7 @@ function showSchedule() {
                     listItem.appendChild(dayInput);
                     listItem.appendChild(timeInput);
                     listItem.appendChild(nameInput);
-
+                    listItem.appendChild(confirmButton);
                 
                 });
 
@@ -103,6 +118,7 @@ function showSchedule() {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({ 
+                            YEAR: schedule.YEAR,
                             MONTH: schedule.MONTH,
                             DAY: schedule.DAY,
                             TIME: schedule.TIME,
@@ -128,19 +144,26 @@ function showSchedule() {
 
                 const buttonContainer = document.createElement('div'); // 두 버튼을 오른쪽에 배치하기 위해 하나의 컨테이너로 묶기
                 buttonContainer.classList.add('buttonContainer');
-
                 buttonContainer.appendChild(editButton);
                 buttonContainer.appendChild(delButton);
 
                 listItem.appendChild(buttonContainer);
                 change.appendChild(listItem);
+                
+                const scheduleDate = new Date(`${schedule.MONTH}/${schedule.DAY}/${schedule.YEAR}`);
+                if (scheduleDate < currentDate) {
+                    listItem.style.backgroundColor = 'lightgray';
+                    buttonContainer.removeChild(editButton);
+                }
             });
         })
         .catch(error => {
             console.error('일정 데이터를 가져오는 중 오류 발생:', error);
-            // 오류 처리
         });
 }
 
-// showSchedule 함수 호출하여 일정 표시
 showSchedule();
+
+
+
+    

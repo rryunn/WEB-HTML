@@ -30,7 +30,7 @@
                 <div class = "calendar-left">
                     <table id = "ctable">
                         <thead> 
-                            <p id="side" style="font-weight: bold;"> 
+                            <p id="side"> 
                                 <label id = "prev">
                                  &#60;&#60;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </label>
@@ -41,7 +41,7 @@
                                 <label id = "next">
                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#62;&#62;
                                 </label>
-                                <br>_____________________________
+                                
                             </p>
                             
                             <tr id = 'tr'>
@@ -62,14 +62,14 @@
                 <div class = "calendar-right">
                     <div id = "cal-date"></div>
                 </div>
-                <div class = "todo"></div>
-                    <div class = "todo-title"> TODO LIST</div>
+                <div id = "todo_user"></div>
+                <div id = "todo_time"> TODO LIST</div>
             </section>
 
         </div>
 
     <selection class = "hidden" id = "regist" > 
-        <h2>날짜와 시간을 선택해주세요.</h2>
+        <h2 id="rtitle">날짜와 시간을 선택해주세요.</h2>
         <div id="mini-cal">
             <table id = "mtable">
                 <thead> 
@@ -106,7 +106,7 @@
         </div>
         <br>
         <div id="result">
-            날짜 : <span id="result_month"></span>월 <span id="result_day"></span>일<br>
+            날짜 : <span id="result_year"></span>년 <span id="result_month"></span>월 <span id="result_day"></span>일<br>
             시간 : <span id="result_time"></span> <br>
             사용자명: <input type="text"id="result_who"><br>
 

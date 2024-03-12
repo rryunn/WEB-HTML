@@ -15,7 +15,10 @@ var result = document.querySelector("#result");
 var result_month = document.querySelector("#result_month");
 var result_day = document.querySelector("#result_day");
 var result_time = document.querySelector("#result_time");
+var result_year = document.querySelector("#result_year");
+var result_who = document.querySelector("#result_who");
 var resultDate = 0;
+
 
 function RegistCalendar(){
     for (var i = 0; i < 6; i ++) {
@@ -85,6 +88,7 @@ function RegistCalendar(){
                     resultDate = this.textContent;
                     result_month.innerHTML += `${toMonth}`;
                     result_day.innerHTML += `${resultDate}`;
+                    result_year.innerHTML += `${toYear}`;
                     isClicked=true;
                 } else {
                     alert("날짜는 하루만 선택 가능합니다.");
@@ -95,6 +99,7 @@ function RegistCalendar(){
                     result_month.innerHTML = ``;
                     result_day.innerHTML = ``;
                     result_time.innerHTML = ``;
+                    result_year.innerHTML = ``;
                     boxes.forEach(function(box) {
                         box.style.backgroundColor = "";
                     });
@@ -226,11 +231,13 @@ boxes.forEach(function(box) {
 // 확인 버튼 클릭 이벤트 핸들러
 document.getElementById("ok").addEventListener("click", function() {
     // 사용자가 선택한 날짜, 시간, 사용자명을 가져옴
+    var result_year_element = document.getElementById("result_year");
     var result_month_element = document.getElementById("result_month");
     var result_day_element = document.getElementById("result_day");
     var result_time_element = document.getElementById("result_time");
     var result_who_element = document.getElementById("result_who");
 
+    var result_year = result_year_element.textContent;
     var result_month = result_month_element.textContent;
     var result_day = result_day_element.textContent;
     var result_time = result_time_element.textContent;
@@ -243,6 +250,7 @@ document.getElementById("ok").addEventListener("click", function() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+            YEAR : result_year,
             MONTH : result_month,
             DAY : result_day,
             TIME: result_time,
@@ -266,6 +274,7 @@ document.getElementById("ok").addEventListener("click", function() {
     });
 
     // 입력 필드 초기화
+    result_year_element.textContent = "";
     result_month_element.textContent = "";
     result_day_element.textContent = "";
     result_time_element.textContent = "";

@@ -3,7 +3,8 @@ var calendarBody = document.getElementById('calendar-body');
 var today = new Date();
 var first = new Date(today.getFullYear(), today.getMonth(), 1);
 const calDate = document.querySelector("#cal-date");
-
+var todayYear = today.getFullYear();
+var todayMonth = today.getMonth() +1;
 const next = document.querySelector("#next");
 const prev = document.querySelector("#prev");
 var toMonth = today.getMonth() + 1;
@@ -24,6 +25,8 @@ function SelectCalendar(){
             if(toMonth === 4 || toMonth ===6||toMonth ===9||toMonth ===11){
                 if(date > 0 && date < 31){
                     $td.textContent = date;
+                    const id = `${toYear}${toMonth}${date}`; 
+                    $td.setAttribute('id', id); 
                     if(date === 30){
                         tx = j;
                     }
@@ -34,15 +37,18 @@ function SelectCalendar(){
                 if(toYear%4===0){
                     if(date > 0 && date < 30){
                         $td.textContent = date;
+                        const id = `${toYear}${toMonth}${date}`; 
+                        $td.setAttribute('id', id); 
                         if(date === 29){
                             tx = j;
-
                         }
                     }   
                 }
                 else{
                     if(date > 0 && date < 29){
                         $td.textContent = date;
+                        const id = `${toYear}${toMonth}${date}`; 
+                        $td.setAttribute('id', id); 
                         if(date === 28){
                             tx = j;
 
@@ -52,36 +58,23 @@ function SelectCalendar(){
             }
             else{
                 if(date > 0 && date < 32){
+
                     $td.textContent = date;
+                    const id = `${toYear}${toMonth}${date}`; 
+                    $td.setAttribute('id', id); 
                     if(date === 31){
                         tx = j;
 
                     }
                 }
             }
-            //td의 id는 date로 
-            //그럼 달 구분은 어떡해 ? 
-            //데이터를 월/달/시간/사용자로 나눠서 받는다고 칠 때
-            // 불러온 데이터의 월과 현재 달이 일치하면 
-            // 그 중에 date가 id와 같은 녀석의 td 위치에다가 추가
 
             $td.addEventListener("click", function(){
-                calDate.textContent = this.textContent;
-
-                //fetch
-
-
-
-
-
-
-
-
-
-
-
-
-                this.innerHTML+= `<br>안녕하세요`;
+                var td_date = this.textContent.substring(0, 2); //textContent 문자열의 0~1를 가져오겠다.
+                if (/\D/.test(td_date)) {
+                    td_date = this.textContent.substring(0, 1); //정규표현식 : 숫자가 아닌 문자가 있다면
+                }
+                calDate.textContent =td_date;
             });
 
             $tr.appendChild($td);
@@ -97,7 +90,6 @@ next.addEventListener("click", (e) =>{
     while (calendarBody.firstChild) {
         calendarBody.removeChild(calendarBody.firstChild);
     } //캘린더 테이블 지워주기
-
     toMonth++; //몇월 하나씩 올려줌
 
     if(toMonth === 13){
@@ -107,6 +99,7 @@ next.addEventListener("click", (e) =>{
     now.innerHTML = `${toYear}년 ${toMonth}월`;
     start = tx +1; //그 달 마지막 요일을 알아낸 후 +1 한 값이 start 로 들어감.
     SelectCalendar();
+    ComeSchedule();
     }
 )
 
@@ -126,6 +119,7 @@ prev.addEventListener("click", (e) =>{
     //next 버튼이랑은 다른 방식
     start = pageFirst.getDay();
     SelectCalendar();
+    ComeSchedule();
     }
 )
 
@@ -133,3 +127,25 @@ prev.addEventListener("click", (e) =>{
 SelectCalendar();
 
 
+
+function ComeSchedule() {
+    fetch('/schedule')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach((schedule) => {
+
+                const dateId = `${schedule.YEAR}${schedule.MONTH}${schedule.DAY}`;
+                const td = document.getElementById(dateId);
+                if (td) {
+                    const dataList = document.createElement('div');
+                    dataList.textContent = `시간: ${schedule.TIME}, 사용자: ${schedule.NAME}`;
+                    td.appendChild(dataList);
+                    dataList.classList.add('schedule-info'); 
+                }
+            });
+        })
+        .catch(error => {
+            console.error('일정 데이터를 가져오는 중 오류 발생:', error);
+        });
+}
+ComeSchedule();
